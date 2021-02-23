@@ -1,5 +1,6 @@
 # aws-lambda-cpp-cloud9
-This repo builds an AWS C++ Lambda function in the Cloud9 environment. It repeats the same locally build Lambda function in this [repo](https://github.com/daniel-fudge/aws-lambda-cpp-local-build).
+This repo builds an AWS C++ Lambda function in the Cloud9 environment. It repeats the same locally build Lambda function in this [repo](https://github.com/daniel-fudge/aws-lambda-cpp-local-build).   
+A video walk through of the video can be found [here](https://youtu.be/olO5ORrq1cU).
 
 ## Install Some Dependencies
 Note the AWS Linux AMI uses `yum` instead of `apt-get`. The version of CMake is also very old so we need to manually download a new version and install.
@@ -104,6 +105,7 @@ aws lambda invoke --function-name demo-cpp-cloud9 --cli-binary-format raw-in-bas
 ```
 
 ## References
+- [Cloud9 Video](https://youtu.be/olO5ORrq1cU)
 - [Local C++ Lambda Repo](https://github.com/daniel-fudge/aws-lambda-cpp-local-build)
 - [CMake Downloads](https://cmake.org/download/)
 - [Introducing the C Lambda Runtime](https://aws.amazon.com/blogs/compute/introducing-the-c-lambda-runtime/)
