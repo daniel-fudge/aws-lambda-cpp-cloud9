@@ -22,7 +22,7 @@ We are also only installing the `core` package. Other packages may be required f
 ```bash
 mkdir ~/install
 cd ~
-git clone https://github.com/aws/aws-sdk-cpp.git
+git clone --recurse-submodules https://github.com/aws/aws-sdk-cpp.git
 cd aws-sdk-cpp
 mkdir build
 cd build
@@ -53,8 +53,9 @@ make install
 
 ## Build the Actual C++ Lambda Function
 ```bash
+cd ~
 git clone git@github.com:daniel-fudge/aws-lambda-cpp-cloud9.git
-cd ~/aws-lambda-cpp-cloud9
+cd aws-lambda-cpp-cloud9
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install
