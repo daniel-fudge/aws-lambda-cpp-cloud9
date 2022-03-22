@@ -54,7 +54,7 @@ make install
 ## Build the Actual C++ Lambda Function
 ```bash
 cd ~
-git clone git@github.com:daniel-fudge/aws-lambda-cpp-cloud9.git
+git clone https://github.com/daniel-fudge/aws-lambda-cpp-cloud9.git
 cd aws-lambda-cpp-cloud9
 mkdir build
 cd build
