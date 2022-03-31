@@ -1,9 +1,11 @@
 # aws-lambda-cpp-cloud9
-This repo builds an AWS C++ Lambda function in the Cloud9 environment. It repeats the same locally build Lambda function in this [repo](https://github.com/daniel-fudge/aws-lambda-cpp-local-build).   
+This repo builds an AWS C++ Lambda function in the Cloud9 environment. It repeats the same locally build Lambda function 
+in this [repo](https://github.com/daniel-fudge/aws-lambda-cpp-local-build).   
 A video walk through of the video can be found [here](https://youtu.be/olO5ORrq1cU).
 
 ## Install Some Dependencies
-Note the AWS Linux AMI uses `yum` instead of `apt-get`. The version of CMake is also very old so we need to manually download a new version and install.
+Note the AWS Linux AMI uses `yum` instead of `apt-get`. The version of CMake is also very old, so we need to manually 
+download a new version and install.
 ```bash
 cd ~
 sudo yum update -y
@@ -17,7 +19,8 @@ sudo make install
 ```
 
 ## Build the AWS C++ SDK
-These steps install the C++ SDK into the `~/install` directory and clones all the directories into `~/environment`. This can obviously be altered if desired.    
+These steps install the C++ SDK into the `~/install` directory and clones all the directories into `~/environment`. 
+This can obviously be altered if desired.    
 We are also only installing the `core` package. Other packages may be required for more involved Lambda functions. 
 ```bash
 mkdir ~/install
@@ -29,7 +32,6 @@ cd build
 cmake .. -DBUILD_ONLY="core" \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=OFF \
-  -DENABLE_UNITY_BUILD=ON \
   -DCUSTOM_MEMORY_MANAGEMENT=OFF \
   -DCMAKE_INSTALL_PREFIX=~/install \
   -DENABLE_UNITY_BUILD=ON
@@ -64,9 +66,11 @@ make aws-lambda-package-demo
 ```
 
 ## Make IAM Role for the Lambda Function
-Note this is the same steps as in the local repo and there is no need to repeat if you have already made the role. You will have to copy the role ARM from the console.   
+Note this is the same steps as in the local repo and there is no need to repeat if you have already made the role. You 
+will have to copy the role ARM from the console.   
 
-We need to create and IAM role that the can be attached to the lambda function when it is deployed. Note the rights in this role may need to be expanded for more complex Lambda functions.  
+We need to create and IAM role that can be attached to the lambda function when it is deployed. Note the rights in this 
+role may need to be expanded for more complex Lambda functions.  
 First create a JSON file that defines the required permissions as shown below.
 ```JSON
 {
@@ -84,9 +88,11 @@ Then create the IAM role in the CLI as shown below.
 ```bash
 aws iam create-role --role-name lambda-demo --assume-role-policy-document file://trust-policy.json
 ```
-The output of the above command will include the ARN of the new role. You must copy this ARN. It will be required when you deploy the Lambda function. It will most like have the form `arn:aws:iam::<your AWS account number>:role/lambda-demo`.   
+The output of the above command will include the ARN of the new role. You must copy this ARN. It will be required when 
+you deploy the Lambda function. It will most like have the form `arn:aws:iam::<your AWS account number>:role/lambda-demo`.   
 
-Next attached the `AWSLambdaBasicExecutionRole` policy to the new role to allow the Lambda function to write to CloudWatch Logs. This is performed with the following CloudWatch command.
+Next attached the `AWSLambdaBasicExecutionRole` policy to the new role to allow the Lambda function to write to 
+CloudWatch Logs. This is performed with the following CloudWatch command.
 ```bash 
 aws iam attach-role-policy --role-name lambda-demo --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 ```
