@@ -6,7 +6,7 @@ A video walk through of the video can be found [here](https://youtu.be/olO5ORrq1
 ## Install Some Dependencies
 Note the AWS Linux AMI uses `yum` instead of `apt-get`. The version of CMake is also very old, so we need to manually 
 download a new version and install.
-```bash
+```shell
 cd ~
 sudo yum update -y
 sudo yum install libcurl-devel -y
@@ -22,7 +22,7 @@ sudo make install
 These steps install the C++ SDK into the `~/install` directory and clones all the directories into `~/environment`. 
 This can obviously be altered if desired.    
 We are also only installing the `core` package. Other packages may be required for more involved Lambda functions. 
-```bash
+```shell
 mkdir ~/install
 cd ~
 git clone --recurse-submodules https://github.com/aws/aws-sdk-cpp.git
@@ -40,7 +40,7 @@ make install
 ```
 
 ## Build the AWS C++ Lambda Runtime
-```bash
+```shell
 cd ~
 git clone https://github.com/awslabs/aws-lambda-cpp-runtime.git
 cd aws-lambda-cpp-runtime
@@ -54,7 +54,7 @@ make install
 ```
 
 ## Build the Actual C++ Lambda Function
-```bash
+```shell
 cd ~
 git clone https://github.com/daniel-fudge/aws-lambda-cpp-cloud9.git
 cd aws-lambda-cpp-cloud9
@@ -85,7 +85,7 @@ First create a JSON file that defines the required permissions as shown below.
 }
 ```
 Then create the IAM role in the CLI as shown below.
-```bash
+```shell
 aws iam create-role --role-name lambda-demo --assume-role-policy-document file://trust-policy.json
 ```
 The output of the above command will include the ARN of the new role. You must copy this ARN. It will be required when 
@@ -93,13 +93,13 @@ you deploy the Lambda function. It will most like have the form `arn:aws:iam::<y
 
 Next attached the `AWSLambdaBasicExecutionRole` policy to the new role to allow the Lambda function to write to 
 CloudWatch Logs. This is performed with the following CloudWatch command.
-```bash 
+```shell 
 aws iam attach-role-policy --role-name lambda-demo --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 ```
 
 ## Deploy 
 We can now deploy the lambda function with the following CLI command.
-```bash
+```shell
 aws lambda create-function --function-name demo-cpp-cloud9 \
   --role <specify role arn from previous step here> \
   --runtime provided --timeout 15 --memory-size 128 \
@@ -107,7 +107,7 @@ aws lambda create-function --function-name demo-cpp-cloud9 \
 ```
 
 ## Test
-```bash
+```shell
 aws lambda invoke --function-name demo-cpp-cloud9 --cli-binary-format raw-in-base64-out --payload '{"location": "somewhere"}' output.json
 ```
 
