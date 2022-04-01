@@ -12,6 +12,8 @@ aws lambda create-function --function-name rpa-demo-cpp-cloud9 \
   --runtime provided --timeout 15 --memory-size 128 \
   --handler demo-cpp-cloud9 --zip-file fileb://demo.zip
 
+sleep 10
+
 aws lambda invoke --function-name rpa-demo-cpp-cloud9 --cli-binary-format raw-in-base64-out --payload '{"location": "somewhere"}' output.json  
 
 echo " "

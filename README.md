@@ -100,6 +100,7 @@ aws iam attach-role-policy --role-name lambda-demo --policy-arn arn:aws:iam::aws
 ## Deploy 
 We can now deploy the lambda function with the following CLI command.
 ```shell
+cd build
 aws lambda create-function --function-name demo-cpp-cloud9 \
   --role <specify role arn from previous step here> \
   --runtime provided --timeout 15 --memory-size 128 \
@@ -107,8 +108,12 @@ aws lambda create-function --function-name demo-cpp-cloud9 \
 ```
 
 ## Test
+Note the [test](test.bsh) script contains the full set of build, deploy and test operations.
 ```shell
+cd build
+rm -f output.json
 aws lambda invoke --function-name demo-cpp-cloud9 --cli-binary-format raw-in-base64-out --payload '{"location": "somewhere"}' output.json
+cat output.json
 ```
 
 ## References
