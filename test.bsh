@@ -1,0 +1,19 @@
+#!/bin/bash
+cd build
+
+aws lambda delete-function --function-name rpa-demo-cpp-cloud9
+
+rm -f output.json
+
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install; make; make aws-lambda-package-demo
+
+aws lambda create-function --function-name rpa-demo-cpp-cloud9 \
+  --role arn:aws:iam::795473850976:role/rpa-lambda-role \
+  --runtime provided --timeout 15 --memory-size 128 \
+  --handler demo-cpp-cloud9 --zip-file fileb://demo.zip
+
+aws lambda invoke --function-name rpa-demo-cpp-cloud9 --cli-binary-format raw-in-base64-out --payload '{"location": "somewhere"}' output.json  
+
+echo " "
+
+cat output.json
